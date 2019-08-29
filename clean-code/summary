@@ -1,0 +1,330 @@
+###
+###
+###
+chapter 1 
+clean code 
+
+Total cost of owning a mess. Unclean code leads to decrease of productivity.
+The management recruits more people. The new employees dont understand the 
+system which leads less productivity and to a faster growing of the mess.
+
+When it comes to the project the manager is defending the schedule and the 
+programmer is definding the (clean) code.
+It is unprofessional to bend to the will of managers who dont understand the 
+risks of making a mess.
+
+The only way to go fast is to keep the code as clean as possible at all time .
+Not write a mess to fulfill the deadline. 
+
+What is clean code?
+
+Clean code is focused. (Single Responsibility Principle)
+It should contain only what is necessary.
+Is easy to read and for others to enhance.
+Smaller is better.
+Readable by humans.
+Is Tested.
+Looks like it was written by someone who cares about the code.
+Reduced duplication, high expressivness, and early building of simple 
+abstractions is clean code.
+The code may look like the language was made to solve the problem.
+In fact the programmer can use the laanguage so it looks like this is the case.
+
+
+Simple code...
+Runs all the tests.
+Contains no duplication.
+Expresses all the design ideas that are in the system.
+Minimizes the number of entities such as classes, methods, 
+functions, and the like.
+
+Read to write Ratio 10:1. Reading 10 times more code than writing it.
+So readability and clean coed matters.
+The Boy scout rule. Leave the campground cleaner than u found it.
+
+
+###
+###
+###
+Chapter 2
+Meaningful names
+
+Use intention-revealing names.
+Not "t" but "timeSpent".
+
+Avoid Disinformation
+Dont use Collection types like list or collection in a name.
+Not "accountList" but "accounts".
+Dont use "l" and "O" since can visually interpreted as 1  and 0.
+
+Make meaningfull distinctions.
+Dont use "klass" because "class" is reserved by the compiler.
+Dont use meaningless noise words like "Info", "Data", "Object", "Variable", 
+"(all kind of datatype names)".
+Use names so the reader can immediatly understand the difference between 2 
+names.
+
+Use pronounceable names 
+
+Use Searchable names
+Not "n" but "userCount". Since "n" can be found thousends of times.
+The length of a name should correspond to the size of its scope.
+
+Avoid encodings
+No Hungarian notation. $varaibleName the $ signs the variable as a string.
+Dont use member prefixes like "m_".
+Dont name an interface "IMyInterfaceName". The leading "I" tells all that 
+is they are using an interface. Better name the concrete implementation 
+different.
+
+Avoid mental mapping
+Clarity is king. Professionals use their abilities to write code that other can 
+read by using meaningful names.
+
+Class names
+Use nouns or noun phrase names.
+
+
+Method names
+Use verbs or verb phrase names.
+When constructors are overloaded use static factory methods that describe
+the arguments instead of the simply overloaded constructor.
+bad: 
+    new Complex(23.0) 
+good:
+    new Complex.FromRealNumber(23.0)
+
+Dont be cute
+No humor in names. Be concrete and factual.
+
+Pick one word per concept
+Pick one word for an abstract concept and stick with it.
+E.g. use "get" in all accessing function names and not one time 
+"get" and in another class "fetch".
+Or "Controller", "Manager", "Handler". Decide one and stick with it.
+
+Dont pun (word games)
+E.g. using "add" means in all classe creates a new value.
+Then dont use "add" but "insert" when adding values to an array.
+
+Use solution domain names
+Use computer science terms like patterns, algorithems and math terms in your 
+names.
+
+Use problem domain names 
+If the name can not be given by the solution domain use a name from the 
+problem domain instead.
+
+Add meaningful context 
+Instead of make variables holding firstname, lastname, street, state use 
+a class  Address that has these fields.
+
+Dont add gratuitios context 
+E.g. Application BreakdownPlanGuide. Dont prefix every class with bpg.
+Shorter is better. Only add words that add information to the name.
+
+###
+###
+###
+Chapter 3 
+functions
+
+Should be small.
+Should be smaller than that(the function u are currently writing).
+
+Blocks and indenting
+Between if, else, while statemnets should only be one line.
+Usually calling another function. This is also documentary since the function 
+can show intent by a well chosen name.
+
+Does one thing and does it well.
+Difficulty is the defintion of what is one thing.
+Generally speaking "one thing" means all the steps that are needed to fulfill
+the job of the function as described in its name BUT only one step below.
+
+Sections within functions 
+A function may not have sections but calling other fuctions instead.
+Sections in a function are an obvious symptom of doing more than one thing.
+
+One Level of abstraction per function
+There should be no mix of low, middle or high level of abstractions like 
+calling File.getHTML() and File.append("\n") in the same function.
+
+Stepdown rule: Reading code from top to bottom
+Function calls may be read like TO-paragraphs and therefore build a letter 
+of abstractions.
+
+    To copy text from a file, we open a file if the file exists, then we buffer 
+    the file content from an opened file, then we close the file and then we 
+    return the buffer.
+
+    To open a file we check for the file to open, then we create a file object, 
+    then we return the file object.
+
+Switch statements 
+Each switch statement should do only one thing. 
+Do this by using polymorphism.
+Switch statemnets can be tolerated if 
+they appear only once in the code
+are used to create polymorphic objects 
+are hidden behind an inheritance relationship so the rest of the system can not 
+see them.
+See the example in the book. 
+abstract class Employee 
+interface EmployeeFactory 
+class EmployeeFactoryImplementation implements EmployeeFactory
+(contains the switch statement) 
+
+Use descriptive names 
+Short names are easier to chose if a function does only one thing.
+But long descriptive names are better than short enigmatic names.
+Use the same phrases, nouns, verbs for function names.
+E.g. findSetupPage, deleteSetupPage for SetupPage then in case of a 
+TeardownPage use the same names for the same logic e.g. 
+findTeardownPage, deleteTeardownPage
+
+Function Arguments 
+As less as possible.
+Preferably no more than 3.
+Preferably is 0, 1, 2, 3.
+One Reason is the abstraction the reador of the code need to interpret 
+the argument when he is reading.
+Second testing more than 2 arguments is hard. Since all the combinations need 
+to be tested.
+
+Common monadic forms (1 argument)
+3 common forms are testing the argument for a bool. FileExists(File) 
+or modify the argument then return the modified argument. WriteNextLine(File)
+Events like passwordFailedNTimes(int attempts) does not return a value 
+but changes state of the system.
+
+Any other forms do not use single argument (monadic forms)
+Avoid functions that transform the input and instead of return it as a value
+using an output argument.
+
+Important there are only these 3 monadic forms 
+1. test the argument for a bool.
+2. transoform the argument and return the modified value 
+3. Events
+
+Flag Arguments 
+DO NOT PASS BOOL VALUES INTO FUNCTIONS. This because it harms the rule that 
+a function does only one thing since it does one thing if bool is true else
+it does another thing.
+
+Dyadic Functions (2 arguments)
+Are more difficult to read than monadic. Since the 2 arguments have no natural 
+ordering and neither natural cohesion.
+E.g. AssertEquals(expected, actual) needs to be learned that the first argument 
+is the expected value and actual value is second.
+Prefer make Dyadic to Monadic if possible.
+E.g. where it should be dyadic new Point(x, y)
+
+Tryads (3 arguments)
+Are harder to understand since the amount of arguements to ignore are more than 
+the double.
+Try to reduce arguments if possible.
+A good way is to use argument objects.
+
+Argument objects 
+If a function takes 2 or more arguments try to wrap the arguments into a class 
+E.g. makeCircle(double x, double y, double radius) 
+better use makeCircle(Point center, double radius) 
+
+Argument Lists 
+If the arguments that are passed are treated the same in the function, then they
+are equivalent to a single argument of type list.
+
+Verbs and Keywords
+keyword form
+This form encodes the argument into the function name.
+E.g. instead of assertEquals() use assertExcpectedEqualsActual(expected, actual)
+The name of the function gives clue to the ordering of the arguments.
+
+Have no side effects
+A function promises to do one thing but does hidden other things. This harms
+the "does one thing" principle.
+E.g. a function called checkPassword() also initialises the session.
+The initializing of the session should be placed in another function or at least
+the function renamed to checkPasswordAndInitializeSession().
+
+Output Arguments 
+Using appendFooter(s) is confusing since the reader can not know if "s" gets 
+appended to a footer or a footer is appended to "s".
+Dont use output arguments in OO. Looking up the function signature means a 
+double-take in time and should be avoided.
+Use report.appendFooter() instead and use the "this" keyword as the output 
+argument. If the function needs to change the state of something, have it change
+the state of its iwning object.
+
+Command Query Separation
+Functions may either do something or answer something but not both.
+Separate the command from the query. 
+Means e.g. 
+if(set("username", "bob"))
+should be 
+if(attributeExists("username")){
+    setAttribute("username", "bob")
+}
+
+Prefer exceptions over returning error codes
+Long story short dont use error codes but exceptions.
+
+Extract Try/Catch Blocks 
+Instead of directly write into Try/Catch blocks write their own functions 
+to call in the block. For the try logic as well as for the error handling logic
+even if it is only a error.log().
+
+Error handling is one thing 
+Means in a function with a try and catch block the try should be the 
+first word and after catch or finally there should be no more code in the block.
+
+The Error.java dependency magnet
+Exceptions might be inherited from the Exception Base Class so when more errors
+are added not all the code needs to be changed. No recompilation and 
+redeployment needed.
+
+Dont repeat yourself DRY 
+Remove code duplication in all its occureneces.
+
+Structured Programming 
+Only relevant rule is to never use goto statements.
+Other rules are obsolete since make no sense for small functions.
+
+Write functions as desribed inthis chapter is an iterative process.
+Every function starts ugly and gets redefined over iterations of clean up.
+
+
+###
+###
+###
+chapter 4 
+comments 
+
+The biggest problem with comments is that they are not maintained  properly.
+They can be anything but truthy and they are the last to be read.
+Instetead of comment messy code clean it.
+In most cases replacing comments with a funcction leads to a cleanr result.
+
+Good comments
+The only good comment is the one you found a way not to write it.
+
+Informative comments
+Which describes regular expression or SQL stamtents. Still would be better in 
+a separate class that is named properly describinf the regular expression 
+or SQL statement.
+
+Explanation of intent
+Comments that describe why and how a programmer came up with a solution 
+can be absolutly worth it.
+
+Clarification
+In code like return values or argumnets that can not be altered or from a 
+standard library.
+Take care here comments like this need to be verified for correctness and 
+try to find a better waay to explain in code.
+
+Warning of consequences
+
+
+
