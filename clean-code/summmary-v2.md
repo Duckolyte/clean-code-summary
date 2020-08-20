@@ -521,4 +521,84 @@ This makes the parent abstract class unsing the behaviour classes "open for exte
 5. Dependency Inversion Principle
 Classes should depend on abstractions (abstract classes or interfaces) not on concrete details (other classes).
 
-### 11. Systems
+### 11. Systems (Clean Code On System Abstraction Level)
+
+1. Separate construction of use.
+Don't use Lazy Initialization in functions (serviceA = new MyService).
+This creates a hard coded dependency in the class which owns the function.
+It makes it harder to test since the service needs to be mocked correctly.
+We mix responsibilities per function. The function does the construction of the service and somthing with the service.
+Goal is to have global strategy for resolving dependencies.
+
+2. Abstract Factory Pattern
+Create factory classes wiich contain the code to create a concrete dependency. (Construction)
+In the class using the dependency use an abstract (interface) of the dependency and let a call to the factory create a concrete dependency implementation.
+
+3. Dependency Injection (DI) and Inversion of Control (IOC)
+DI is a good way to separate construction of use.
+The container / application server takes control about the construction of objects 
+by configuration (xml or annotations). Instances are create by the container by using constructor arguments (Constructor Injection)
+or Setters (Field Injection).
+
+4. Scaling up (Aspect Oriented Programming AOP)
+To scale up a project the key is to separate concerns from the beginning.
+Separating concerns is handled by frameworks implementing Aspect Oriented Programming (AOP) Concepts.
+AOP does ensure modularity by separating "aspects" like persistence, security, transactions into separate moduls.
+Long story short: An optimal system architecture consists of modularized domains of concern. Each of which isimplemented with POJOs.
+The different domains are integrated together with minimally invasive Aspects.
+
+### 12. Emergence
+All the software components written in a project should follow 4 rules.
+
+1. Run all tests
+2. Contain no duplication
+3. Express the intent of the programmer
+4. Minimize the number of classes and methods
+
+1. No Duplication
+Duplication should be eliminated in big (classes/modules) and small (functions) scale.
+Reduce methods with similar or same logic into separte methods by using the Template Method Pattern.
+
+2. Expressive 
+Make the code readable by follwoing the principles from the chapters before.
+
+### 13. Concurrency
+
+1. Best practise 
+Concurrent code should be separated from sequential code.
+Concurrent code should have its own lifecycle of development, change and tuning.
+Concurrent code should share as less data as possible. 
+E.g. use readonly copies of the data while processing in concurrent code and merge them after in the sequential code.
+
+2. Terminology
+* Bound Resources   -> Resources of a fixed size or number. E.g. DB connection, read/write buffers.
+* Mutual Exclusion  -> Only one thread can access shared data/resource at a time.
+* Starvation        -> One thread or a group of is prohibit from proceeding. E.g. by priorize fast threads.
+* Deadlock          -> When threads block each other from finishing.
+* Livelock          -> Threads trying to do work but finding another thread in its way and get stuck for long time or forever.
+
+3. Producer-Consumer
+There are Producer threads which create work and place it in a buffer.
+There are Consumer threads which process the work in the buffer.
+The buffer is a Bound Resource. 
+Producer can only add new work when there is space in the buffer.
+Consumer can only cosum work if there is work in the buffer.
+
+3. Basic recommendations when writing concurrent code.
+* Learn the casic algorithms and understand their solutions.
+* Avoid using more than one method on a shared object.
+* Keep *synchronized* sections as small as possible.
+* Implement and verify proper shut down of a concurrent system early.
+* Test the concurrent code frequently with various application and system (OS) configuration.
+* Do not ignore rare system failures as *on-offs*. Problems come from the multiple processing pathways and the fact that only a few of them fail when using multithreading.
+* Separate thread-aware from thread-ignorant code and test them separatly as well.
+* Make the thread aware code especially pluggable so it can be run with vaious configurations.
+* When testing run it with more threads than processors. The problems usually occure when the OS is swapping tasks.
+* Use Aspect Oriented Frameworks like CGLIB or ASM to make use of jiggling strategies and find errors as early as possible.
+
+### 14. Successive Refinement
+
+1. 
+
+
+
