@@ -493,3 +493,32 @@ Clean tests are...
 
 
 ### 10. Classes
+
+1. Class Organization
+* public static vars
+* private static vars
+* private instance vars 
+* public functions
+* private fucntions (directly under the public function that uses it)
+
+2. Single Responsibility Principle
+A class should be small.
+A class should have one responsibility and therefore have exactly one reason to change.
+A good indicator if a class has too many responsibilities when they can't be named precisely.
+Another indicator can be if one can not describe in a few words what a class is responsible of without using the words *if* *and* *or* *but*.
+
+3. Cohesion
+Classes should have a small number of instance variables.
+A class in which every instance variable is used by each method is maximally cohesive. 
+Try to make as cohesiv classes as possible.
+It is an indicator that the class has one responsibility. 
+
+4. Open Closed Principle (OCP)
+Use an abstract class to represent concepts. 
+Use separated small classes instead of functions and inherit from the abstract class to implement behaviour (Strategy Pattern).
+This makes the parent abstract class unsing the behaviour classes "open for extension but closed for modification".
+
+5. Dependency Inversion Principle
+Classes should depend on abstractions (abstract classes or interfaces) not on concrete details (other classes).
+
+### 11. Systems
